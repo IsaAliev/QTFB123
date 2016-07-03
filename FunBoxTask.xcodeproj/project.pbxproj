@@ -13,6 +13,17 @@
 		CE0E12DC1D26BE7B00CCD711 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE0E12DA1D26BE7B00CCD711 /* Main.storyboard */; };
 		CE0E12DE1D26BE7B00CCD711 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE0E12DD1D26BE7B00CCD711 /* Assets.xcassets */; };
 		CE0E12E11D26BE7B00CCD711 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE0E12DF1D26BE7B00CCD711 /* LaunchScreen.storyboard */; };
+		CE0E12EA1D26BFA000CCD711 /* IAStoreFrontViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE0E12E91D26BFA000CCD711 /* IAStoreFrontViewController.m */; };
+		CE0E12ED1D26BFB300CCD711 /* IABackEndViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE0E12EC1D26BFB300CCD711 /* IABackEndViewController.m */; };
+		CE0E12F01D26C41700CCD711 /* IASVCParser.m in Sources */ = {isa = PBXBuildFile; fileRef = CE0E12EF1D26C41700CCD711 /* IASVCParser.m */; };
+		CE0E12F31D26C43800CCD711 /* IAProduct.m in Sources */ = {isa = PBXBuildFile; fileRef = CE0E12F21D26C43800CCD711 /* IAProduct.m */; };
+		CE0E12F91D26CBA800CCD711 /* data.csv in Resources */ = {isa = PBXBuildFile; fileRef = CE0E12F81D26CBA800CCD711 /* data.csv */; };
+		CE776B211D284B1A00D20E54 /* IAJSONXMLParserAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = CE776B201D284B1900D20E54 /* IAJSONXMLParserAdapter.m */; };
+		CE776B241D284CFE00D20E54 /* IAConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = CE776B231D284CFE00D20E54 /* IAConverter.m */; };
+		CEB0BEBB1D29180800F243BB /* IADataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = CEB0BEBA1D29180800F243BB /* IADataStore.m */; };
+		CEC6AD071D26D57400C158DB /* IAProductDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEC6AD061D26D57400C158DB /* IAProductDetailController.m */; };
+		CEC6AD0A1D26E6B800C158DB /* IAProductsViewer.m in Sources */ = {isa = PBXBuildFile; fileRef = CEC6AD091D26E6B800C158DB /* IAProductsViewer.m */; };
+		CEC6AD0D1D26EB5D00C158DB /* IAAdminProductDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEC6AD0C1D26EB5D00C158DB /* IAAdminProductDetailController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +37,27 @@
 		CE0E12DD1D26BE7B00CCD711 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CE0E12E01D26BE7B00CCD711 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CE0E12E21D26BE7B00CCD711 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CE0E12E81D26BFA000CCD711 /* IAStoreFrontViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAStoreFrontViewController.h; sourceTree = "<group>"; };
+		CE0E12E91D26BFA000CCD711 /* IAStoreFrontViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IAStoreFrontViewController.m; sourceTree = "<group>"; };
+		CE0E12EB1D26BFB300CCD711 /* IABackEndViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IABackEndViewController.h; sourceTree = "<group>"; };
+		CE0E12EC1D26BFB300CCD711 /* IABackEndViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IABackEndViewController.m; sourceTree = "<group>"; };
+		CE0E12EE1D26C41700CCD711 /* IASVCParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IASVCParser.h; sourceTree = "<group>"; };
+		CE0E12EF1D26C41700CCD711 /* IASVCParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IASVCParser.m; sourceTree = "<group>"; };
+		CE0E12F11D26C43800CCD711 /* IAProduct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAProduct.h; sourceTree = "<group>"; };
+		CE0E12F21D26C43800CCD711 /* IAProduct.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IAProduct.m; sourceTree = "<group>"; };
+		CE0E12F81D26CBA800CCD711 /* data.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = data.csv; sourceTree = "<group>"; };
+		CE776B1F1D284B1900D20E54 /* IAJSONXMLParserAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAJSONXMLParserAdapter.h; sourceTree = "<group>"; };
+		CE776B201D284B1900D20E54 /* IAJSONXMLParserAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IAJSONXMLParserAdapter.m; sourceTree = "<group>"; };
+		CE776B221D284CFE00D20E54 /* IAConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAConverter.h; sourceTree = "<group>"; };
+		CE776B231D284CFE00D20E54 /* IAConverter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IAConverter.m; sourceTree = "<group>"; };
+		CEB0BEB91D29180800F243BB /* IADataStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IADataStore.h; sourceTree = "<group>"; };
+		CEB0BEBA1D29180800F243BB /* IADataStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IADataStore.m; sourceTree = "<group>"; };
+		CEC6AD051D26D57400C158DB /* IAProductDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAProductDetailController.h; sourceTree = "<group>"; };
+		CEC6AD061D26D57400C158DB /* IAProductDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IAProductDetailController.m; sourceTree = "<group>"; };
+		CEC6AD081D26E6B800C158DB /* IAProductsViewer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAProductsViewer.h; sourceTree = "<group>"; };
+		CEC6AD091D26E6B800C158DB /* IAProductsViewer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IAProductsViewer.m; sourceTree = "<group>"; };
+		CEC6AD0B1D26EB5D00C158DB /* IAAdminProductDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAAdminProductDetailController.h; sourceTree = "<group>"; };
+		CEC6AD0C1D26EB5D00C158DB /* IAAdminProductDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IAAdminProductDetailController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +99,26 @@
 				CE0E12DF1D26BE7B00CCD711 /* LaunchScreen.storyboard */,
 				CE0E12E21D26BE7B00CCD711 /* Info.plist */,
 				CE0E12D11D26BE7B00CCD711 /* Supporting Files */,
+				CE0E12E81D26BFA000CCD711 /* IAStoreFrontViewController.h */,
+				CE0E12E91D26BFA000CCD711 /* IAStoreFrontViewController.m */,
+				CE0E12EB1D26BFB300CCD711 /* IABackEndViewController.h */,
+				CE0E12EC1D26BFB300CCD711 /* IABackEndViewController.m */,
+				CE0E12EE1D26C41700CCD711 /* IASVCParser.h */,
+				CE0E12EF1D26C41700CCD711 /* IASVCParser.m */,
+				CE0E12F11D26C43800CCD711 /* IAProduct.h */,
+				CE0E12F21D26C43800CCD711 /* IAProduct.m */,
+				CEC6AD051D26D57400C158DB /* IAProductDetailController.h */,
+				CEC6AD061D26D57400C158DB /* IAProductDetailController.m */,
+				CEC6AD081D26E6B800C158DB /* IAProductsViewer.h */,
+				CEC6AD091D26E6B800C158DB /* IAProductsViewer.m */,
+				CEC6AD0B1D26EB5D00C158DB /* IAAdminProductDetailController.h */,
+				CEC6AD0C1D26EB5D00C158DB /* IAAdminProductDetailController.m */,
+				CE776B1F1D284B1900D20E54 /* IAJSONXMLParserAdapter.h */,
+				CE776B201D284B1900D20E54 /* IAJSONXMLParserAdapter.m */,
+				CE776B221D284CFE00D20E54 /* IAConverter.h */,
+				CE776B231D284CFE00D20E54 /* IAConverter.m */,
+				CEB0BEB91D29180800F243BB /* IADataStore.h */,
+				CEB0BEBA1D29180800F243BB /* IADataStore.m */,
 			);
 			path = FunBoxTask;
 			sourceTree = "<group>";
@@ -74,6 +126,7 @@
 		CE0E12D11D26BE7B00CCD711 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				CE0E12F81D26CBA800CCD711 /* data.csv */,
 				CE0E12D21D26BE7B00CCD711 /* main.m */,
 			);
 			name = "Supporting Files";
@@ -105,6 +158,7 @@
 		CE0E12C61D26BE7B00CCD711 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				CLASSPREFIX = IA;
 				LastUpgradeCheck = 0730;
 				ORGANIZATIONNAME = "I&N";
 				TargetAttributes = {
@@ -136,6 +190,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE0E12F91D26CBA800CCD711 /* data.csv in Resources */,
 				CE0E12E11D26BE7B00CCD711 /* LaunchScreen.storyboard in Resources */,
 				CE0E12DE1D26BE7B00CCD711 /* Assets.xcassets in Resources */,
 				CE0E12DC1D26BE7B00CCD711 /* Main.storyboard in Resources */,
@@ -149,9 +204,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CEC6AD071D26D57400C158DB /* IAProductDetailController.m in Sources */,
 				CE0E12D91D26BE7B00CCD711 /* ViewController.m in Sources */,
+				CEB0BEBB1D29180800F243BB /* IADataStore.m in Sources */,
+				CEC6AD0A1D26E6B800C158DB /* IAProductsViewer.m in Sources */,
 				CE0E12D61D26BE7B00CCD711 /* AppDelegate.m in Sources */,
+				CE776B211D284B1A00D20E54 /* IAJSONXMLParserAdapter.m in Sources */,
+				CE0E12EA1D26BFA000CCD711 /* IAStoreFrontViewController.m in Sources */,
+				CE776B241D284CFE00D20E54 /* IAConverter.m in Sources */,
+				CE0E12F01D26C41700CCD711 /* IASVCParser.m in Sources */,
 				CE0E12D31D26BE7B00CCD711 /* main.m in Sources */,
+				CE0E12F31D26C43800CCD711 /* IAProduct.m in Sources */,
+				CEC6AD0D1D26EB5D00C158DB /* IAAdminProductDetailController.m in Sources */,
+				CE0E12ED1D26BFB300CCD711 /* IABackEndViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -300,6 +365,7 @@
 				CE0E12E71D26BE7B00CCD711 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
