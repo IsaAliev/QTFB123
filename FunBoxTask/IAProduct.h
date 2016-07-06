@@ -12,6 +12,6 @@
 @property (strong, nonatomic) NSString* name;
 @property (strong, nonatomic) NSString* price;
 @property (assign, nonatomic) NSInteger count;
-
+@property (assign, nonatomic) NSInteger updatedCount;
 -(instancetype)initWithName:(NSString*)name price:(NSString*)price countString:(NSString*)countString;
 @end

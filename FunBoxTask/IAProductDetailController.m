@@ -9,10 +9,12 @@
 #import "IAProductDetailController.h"
 #import "IAProduct.h"
 #import "IASVCParser.h"
+#import "IAAdminProductDetailController.h"
 @interface IAProductDetailController()
 
 @end
 
+NSString* const IAProductDetailControllerProductWasBoughtNotification =  @"IAProductDetailControllerProductWasBoughtNotification";
 
 @implementation IAProductDetailController
 
@@ -32,6 +34,7 @@
 -(void)viewDidLoad{
     [super viewDidLoad];
     self.tableView.contentInset = UIEdgeInsetsMake(40, 0, 0, 0);
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(infoDidChangeNotification:) name:IABackEndInfoDidChangeNotification object:nil];
     
 }
 
@@ -45,6 +48,7 @@
         [parser buyProduct:self.product onSucces:^{
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self.tableView reloadData];
+                [[NSNotificationCenter defaultCenter] postNotificationName:IAProductDetailControllerProductWasBoughtNotification object:self.product];
             });
             
             } onFailure:^(NSError *error) {
@@ -111,6 +115,20 @@
 
     
     return cell;
+}
+
+#pragma mark - Notification
+
+-(void)infoDidChangeNotification:(NSNotification*)note{
+    IAProduct* oldStateProduct = (IAProduct*)note.object[kOldProductState];
+
+    if ([[oldStateProduct name] isEqualToString:self.product.name]) {
+        self.product.name = [(IAProduct*)note.object[kNewProductState] name];
+        self.product.price = [(IAProduct*)note.object[kNewProductState] price];
+        self.product.count = [(IAProduct*)note.object[kNewProductState] count];
+        [self.tableView reloadData];
+        
+    }
 }
 
 #pragma mark - Private Methods

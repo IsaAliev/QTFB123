@@ -9,6 +9,7 @@
 #import "IASVCParser.h"
 #import "IAProduct.h"
 #import "IADataStore.h"
+#import "IAAdminProductDetailController.h"
 @implementation IASVCParser
 
 
@@ -23,7 +24,7 @@
 }
 
 -(NSArray*)parseSVCString:(NSString*)string  forFrontStore:(BOOL)forFront{
-    
+
     NSArray* lines = [string componentsSeparatedByString:@"\n"];
     
     NSMutableArray* resultArray = [NSMutableArray array];
@@ -67,6 +68,7 @@
     
     NSString* line = [NSString stringWithFormat:@"\n\"%@\", \"%@\", \"%@\"", product.name, product.price, [NSString stringWithFormat:@"%ld", (long)product.count]];
     
+    
     NSString* result = [string stringByAppendingString:line];
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [self.delegate saveCVSString:result];
@@ -104,35 +106,80 @@
         NSArray* components = [line componentsSeparatedByString:@","];
         
         NSString* name = [self getWordWithinQuotes:[components objectAtIndex:0] isNumber:NO];
-        NSString* price = [self getWordWithinQuotes:[components objectAtIndex:1] isNumber:YES];
-        NSString* countString = [self getWordWithinQuotes:[components objectAtIndex:2] isNumber:YES];
         
         if ([name isEqualToString:fromProduct.name]) {
-            NSString* s1 = [line stringByReplacingOccurrencesOfString:name withString:toProduct.name];
-            NSString* s2 = [s1 stringByReplacingOccurrencesOfString:price withString:toProduct.price];
-            NSString* s3 = [s2 stringByReplacingOccurrencesOfString:countString
-                                                         withString:[NSString stringWithFormat:@"%ld", (long)toProduct.count]];
-            result = [string stringByReplacingOccurrencesOfString:line withString:s3];
+            NSString* newLine = [NSString stringWithFormat:@"\"%@\", \"%@\", \"%@\"", toProduct.name, toProduct.price,[NSString stringWithFormat:@"%ld", (long)toProduct.count] ];
+            
+            result = [string stringByReplacingOccurrencesOfString:line withString:newLine];
             break;
         }
     }
     
+
+        NSTimeInterval time =  5;
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(time * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self.delegate saveCVSString:result];
+            if (succes) {
+                succes();
+            }
+        });
     
-    NSTimeInterval time = isBuying? 3 : 5;
-    
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(time * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self.delegate saveCVSString:result];
-        if (succes) {
-            succes();
-        }
-    });
+
     
 }
+
+-(void)reduceCountForProduct:(IAProduct*)product
+                   onSucces:(void(^)(NSInteger count)) succes
+                  onFailure:(void(^)(NSError* error)) failure{
+    
+    NSString* path = [IADataStore pathForStore];
+    
+    NSError* error;
+    
+    NSString* string = [NSString stringWithContentsOfFile:path
+                                                 encoding:NSUTF8StringEncoding error:&error];
+    
+    if (error) {
+        if (failure) {
+            failure(error);
+        }
+        return;
+    }
+    
+    
+    NSArray* lines = [self lines];
+    
+    NSString* result = string;
+        
+    for (NSString* line in lines){
+        NSArray* components = [line componentsSeparatedByString:@","];
+        
+        NSString* name = [self getWordWithinQuotes:[components objectAtIndex:0] isNumber:NO];
+        NSString* countString = [self getWordWithinQuotes:[components objectAtIndex:2] isNumber:YES];
+        
+        if ([name isEqualToString:product.name]) {;
+            NSString* newLine = [NSString stringWithFormat:@"\"%@\", \"%@\", \"%@\"", product.name, product.price,[NSString stringWithFormat:@"\"%ld\"", [countString integerValue]-1]];
+            result = [string stringByReplacingOccurrencesOfString:line withString:newLine];
+            break;
+        }
+    }
+    
+    product.count--;
+    
+    [self.delegate saveCVSString:result];
+    if (succes) {
+        succes(product.count);
+    }
+}
+
+
 
 -(void)buyProduct:(IAProduct*)product
          onSucces:(void(^)(void)) succes
         onFailure:(void(^)(NSError* error)) failure{
-    if (product.count==0) {
+
+    if (product.count<=0||product.updatedCount<=0) {
         NSError* error = [NSError errorWithDomain:@"The store is out of the product"
                                              code:104 userInfo:nil];
         if (failure) {
@@ -141,20 +188,26 @@
         
         return;
     }
-    
-    
-    IAProduct* reducedProduct = product;
-    reducedProduct.count -=1;
-    
-    [self saveChangesFromState:product toState:reducedProduct isBuyingOperation:YES onSucces:^{
-        if (succes) {
-            succes();
-        }
-    } onFailure:^(NSError * error) {
-        if (failure) {
+        product.updatedCount--;
+        NSTimeInterval time = product.updatedCount*2;
+
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(time * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+
+        
+        [self reduceCountForProduct:product onSucces:^(NSInteger newCount){
+            IAProduct* redProduct = [[IAProduct alloc] initWithName:product.name price:product.price countString:[NSString stringWithFormat:@"%ld", (long)newCount]];
+            [[NSNotificationCenter defaultCenter] postNotificationName:IABackEndInfoDidChangeNotification object:@{kOldProductState:product,kNewProductState:redProduct}];
+            if (succes) {
+                succes();
+            }
+        } onFailure:^(NSError *error) {
+            if (failure) {
             failure(error);
-        }
-    }];
+            }
+        }];
+
+    });
+
 }
 
 -(void)saveCVSString:(NSString*)string{

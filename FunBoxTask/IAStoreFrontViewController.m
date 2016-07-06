@@ -31,7 +31,8 @@
 -(void)viewDidLoad{
     [super viewDidLoad];
     [self getProducts];
-    
+    self.products = [NSMutableArray array];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getProducts) name:IABackEndProductAddedNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getProducts) name:IABackEndInfoDidChangeNotification object:nil];
 }
 

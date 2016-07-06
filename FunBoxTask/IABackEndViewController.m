@@ -12,6 +12,7 @@
 #import "IAProductDetailController.h"
 #import "IAAdminProductDetailController.h"
 
+
 @interface IABackEndViewController()
 @property (strong, nonatomic) NSArray* products;
 @end
@@ -30,17 +31,29 @@
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     
-    [self getProducts];
+   // [self getProducts];
+}
+
+-(void)dealloc{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 -(void)viewDidLoad{
     [super viewDidLoad];
-    [self getProducts];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getProducts) name:IABackEndProductAddedNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getProducts) name:IABackEndInfoDidChangeNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getProducts) name:IAProductDetailControllerProductWasBoughtNotification object:nil];
+    self.products = [NSMutableArray array];
+    
+    
     UIBarButtonItem* add = [[UIBarButtonItem alloc]
                             initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
                             target:self
                             action:@selector(addButtonAction:)];
     self.navigationItem.rightBarButtonItem = add;
+    
+    [self getProducts];
 }
 
 -(void)getProducts{
@@ -56,8 +69,8 @@
     
     IASVCParser* parser = [[IASVCParser alloc] init];
     self.products = [parser parseSVCString:string forFrontStore:NO];
-    [self.tableView   reloadData];
-}
+    
+    [self.tableView   reloadData];}
 
 #pragma mark - UITableViewDataSource
 

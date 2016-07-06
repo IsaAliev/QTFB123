@@ -10,6 +10,7 @@
 
 @class IAProduct;
 
+extern NSString* const IAProductDetailControllerProductWasBoughtNotification;
 
 @interface IAProductDetailController : UITableViewController
 

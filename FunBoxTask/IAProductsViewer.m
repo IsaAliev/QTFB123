@@ -9,9 +9,9 @@
 #import "IAProductsViewer.h"
 #import "IAProduct.h"
 #import "IAProductDetailController.h"
-
+#import "IAAdminProductDetailController.h"
 @interface IAProductsViewer() <UIPageViewControllerDataSource>
-@property (strong, nonatomic) NSArray* products;
+@property (strong, nonatomic) NSMutableArray* products;
 @property (strong, nonatomic) IAProduct* initialProduct;
 @property (strong, nonatomic) UIViewController* viewController;
 @property (strong, nonatomic) UIPageViewController* pageViewController;
@@ -25,14 +25,21 @@
                     forViewController:(UIViewController*)viewController{
     self = [super init];
     if (self) {
-        self.products = products;
+        self.products = [NSMutableArray arrayWithArray:products];
         self.initialProduct = initialProduct;
         self.viewController = viewController;
     }
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(infoDidChangeNotification:) name:IABackEndInfoDidChangeNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(productAddedNotification:) name:IABackEndProductAddedNotification object:nil];
     
     return self;
     
 }
+
+-(void)dealloc{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 -(void)show{
     IAProductDetailController* dc = [[IAProductDetailController alloc]
                                      initWithProduct:self.initialProduct];
@@ -57,6 +64,7 @@
     [closeButton setTranslatesAutoresizingMaskIntoConstraints:NO];
     
     [page.view addSubview:closeButton];
+    
     
     
     [page.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(8)-[closeButton(20)]" options:NSLayoutFormatAlignAllLeft metrics:nil views:NSDictionaryOfVariableBindings(closeButton)]];
@@ -102,6 +110,41 @@
     
     return [[IAProductDetailController alloc]
             initWithProduct:[self.products objectAtIndex:index]];
+}
+
+#pragma mark - Notifications
+
+-(void)infoDidChangeNotification:(NSNotification*)note{
+    IAProductDetailController* dc = (IAProductDetailController*)[self.pageViewController.viewControllers lastObject];
+    IAProduct* oldStateProduct = (IAProduct*)note.object[kOldProductState];
+    
+    IAProduct* currentProduct = dc.product;
+    IAProduct* newStateProduct = (IAProduct*)note.object[kNewProductState];
+    if ([oldStateProduct.name isEqualToString:currentProduct.name]) {
+ 
+        if (newStateProduct.count==0) {
+            IAProductDetailController* newDC = (IAProductDetailController*)[self pageViewController:self.pageViewController viewControllerAfterViewController:dc];
+            if (!newDC) {
+                 newDC = (IAProductDetailController*)[self pageViewController:self.pageViewController viewControllerBeforeViewController:dc];
+            }
+            if (!newDC) {
+                [self closePageVCAction];
+                return;
+            }
+            [self.pageViewController
+             setViewControllers:@[newDC] direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:nil];
+            [self.products removeObject:dc.product];
+        }
+    }
+    if (oldStateProduct.count==0&&newStateProduct.count>0) {
+        [self.products addObject:newStateProduct];
+    }
+}
+
+-(void)productAddedNotification:(NSNotification*)note{
+    IAProduct* product = (IAProduct*)note.object;
+    [self.products addObject:product];
+    
 }
 
 #pragma mark - Actions

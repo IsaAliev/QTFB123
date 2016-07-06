@@ -10,8 +10,9 @@
 @class IAProduct;
 
 extern NSString* const IABackEndInfoDidChangeNotification;
-
-
+extern NSString* const IABackEndProductAddedNotification;
+extern  NSString* const kOldProductState;
+extern NSString* const kNewProductState;
 typedef enum{
     IAAdminProductDetailControllerTypeNew,
     IAAdminProductDetailControllerTypeEdit
